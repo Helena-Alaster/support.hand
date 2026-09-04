@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Противодейтсвие буллингу</title>
+    <title>Анкета и информация</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #f4f4f8;
             color: #333;
-            line-height: 1.2;
+            line-height: 1.6;
         }
 
         header {
@@ -35,13 +35,16 @@
 
         /* --- Ключевое изменение: фиксированное расположение в линию --- */
         .main-container {
-            display: flex;
-            justify-content: center; /* Центрирует всю пару блоков */
-            align-items: flex-start; /* Выравнивает по верхнему краю */
-            gap: 40px; /* Расстояние между блоками */
-            padding: 60px 5% 40px; /* Увеличены боковые отступы для ощущения "воздуха" */
-            max-width: 1200px; /* Ограничение ширины для очень больших мониторов */
-            margin: 0 auto; /* Помогает идеально отцентровать саму полосу с блоками */
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 40px;
+        padding: 60px 5% 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        align-content: center;
+        flex-direction: column-reverse;
         }
 
         .card {
@@ -52,7 +55,7 @@
             width: 100%;
             /* Убираем ограничение максимальной ширины, чтобы блоки делили пространство поровну */
             flex-grow: 1; 
-            height: 700px;
+          
         }
 
         .form-group {
@@ -153,34 +156,63 @@
 <body>
 
     <header>
-        <h1 id="site-title">Центр поддержки и информации</h1>
+        <h1 id="site-title">Поддержка жертв травли и буллинга</h1>
     </header>
 
     <!-- Блоки теперь всегда стоят в ряд -->
     <div class="main-container">
         <section class="card form-card">
-            <h2 style="margin-bottom: 20px;">Заполните анкету</h2>
+            <h2 style="margin-bottom: 20px;">Заявка на звонок</h2>
             <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="name">Ваше имя</label>
-                    <input type="text" id="name" placeholder="Иван Иванов" required>
-                </div>
                 <div class="form-group">
                     <label for="email">Электронная почта</label>
                     <input type="email" id="email" placeholder="example@mail.ru" required>
                 </div>
                  <div class="form-group">
-                    <label for="topic">Тема обращения</label>
-                    <select id="topic">
-                        <option>Консультация</option>
-                        <option>Сообщить о проблеме</option>
-                        <option>Обратная связь</option>
-                    </select>
+                    <label for="topic"><strong>С каким преследованием, травлей, буллингом сталкиваешься</strong></label>
+                    <div style="display: grid;gap: 15px;margin-bottom: 15px;grid-template-columns: repeat(2, 3fr);align-content: space-between;justify-content: space-around;align-items: baseline;justify-items: stretch;width: 700px;">
+                        <label><input type="checkbox" name="topics" value=" Вуайеризм"> Вуайеризм</label>
+                        <label><input type="checkbox" name="topics" value=" Враждебность молодых поколений по отношению к старшим"> Враждебность молодых поколений по отношению к старшим</label>
+                        <label><input type="checkbox" name="topics" value=" Антироссийские или антиславянские настроения"> Антироссийские или антиславянские настроения</label>
+                        <label><input type="checkbox" name="topics" value=" Терроризм"> Терроризм</label>
+                        <label><input type="checkbox" name="topics" value=" Буллинг"> Буллинг</label>
+                        <label><input type="checkbox" name="topics" value=" Правоохранительное преследование"> Правоохранительное преследование</label>
+                        <label><input type="checkbox" name="topics" value=" Долговое преследование (коллекторы)"> Долговое преследование (коллекторы)</label>
+                        <label><input type="checkbox" name="topics" value=" Наркораспространительное преследование"> Наркораспространительное преследование</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование на почве ревности"> Преследование на почве ревности</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование на почве бизнес конкуренции"> Преследование на почве бизнес конкуренции</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование с целью мщения за собственную зависть, самосуды, "ты меня ничем не лучше""> Преследование с целью мщения за собственную зависть, самосуды, "ты меня ничем не лучше"</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование на почве враждебности женщин друг к другу, мужчин к женщинам, или мужчин к мужчинам"> Преследование на почве враждебности женщин друг к другу, мужчин к женщинам, или мужчин к мужчинам</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование для розжига религиозного или национального конфликта"> Преследование для розжига религиозного или национального конфликта</label>
+                        <label><input type="checkbox" name="topics" value=" Преследование для создания чувства отвращения к России, её политики и государственной власти"> Преследование для создания чувства отвращения к России, её политики и государственной власти</label>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="message">Комментарий</label>
-                    <textarea id="message" rows="4" placeholder="Опишите вашу ситуацию..."></textarea>
+                    <label for="topic"><strong>Сферы преследования травли/буллинга</strong></label>
+                    <div style="display: grid;gap: 8px;margin-bottom: 15px;grid-template-columns: repeat(2, 3fr);align-content: space-between;justify-content: space-around;align-items: baseline;justify-items: stretch;width: 700px;">
+                        <label><input type="checkbox" name="topics" value=" На работе"> На работе</label>
+                        <label><input type="checkbox" name="topics" value=" Дома (родители)"> Дома (родители)</label>
+                        <label><input type="checkbox" name="topics" value=" Дома (супруг(а), дети)"> Дома (супруг(а), дети)</label>
+                        <label><input type="checkbox" name="topics" value=" Друзья, товарищи, бывший круг общения"> Друзья, товарищи, бывший круг общения</label>
+                        <label><input type="checkbox" name="topics" value=" Соседи"> Соседи</label>
+                        <label><input type="checkbox" name="topics" value=" Незнакомые люди на улице"> Незнакомые люди на улице</label>
+                        <label><input type="checkbox" name="topics" value=" Неизвестно что или кто в интернет пространстве, включая спам"> Неизвестно что или кто в интернет пространстве, включая спам</label>
+                    </div>
+
                 </div>
+                <div class="form-group form-agreement">
+                   <div style="display: flex;align-items: baseline;gap: 1px;justify-content: space-evenly;align-content: stretch;flex-wrap: nowrap;background-color: #cad8ff;border-radius: 10px;">
+                   <input type="checkbox" name="personal_data_agreement" id="agree" required>
+                        <label for="agree">
+                                Я даю согласие на обработку моих 
+                            <a href="/privacy-policy.html" target="_blank">персональных данных</a>
+                            и соглашаюсь с условиями 
+                            <a href="/terms-of-service.html" target="_blank">пользовательского соглашения</a>
+                        </label>
+                    </div>
+                </div>
+
+                
                 <button type="submit">Отправить данные</button>
             </form>
         </section>
