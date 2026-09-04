@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета и информация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f4f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 20px 5%;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        h1 {
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            color: #2c3e50;
+        }
+
+        /* --- Ключевое изменение: фиксированное расположение в линию --- */
+        .main-container {
+            display: flex;
+            justify-content: center; /* Центрирует всю пару блоков */
+            align-items: flex-start; /* Выравнивает по верхнему краю */
+            gap: 40px; /* Расстояние между блоками */
+            padding: 60px 5% 40px; /* Увеличены боковые отступы для ощущения "воздуха" */
+            max-width: 1200px; /* Ограничение ширины для очень больших мониторов */
+            margin: 0 auto; /* Помогает идеально отцентровать саму полосу с блоками */
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            width: 100%;
+            /* Убираем ограничение максимальной ширины, чтобы блоки делили пространство поровну */
+            flex-grow: 1; 
+            height: 700px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdfe3;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, 
+        textarea:focus, 
+        select:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #357abd;
+        }
+
+        .text-block p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        footer {
+            background-color: #ffffff;
+            padding: 40px 5% 20px;
+            margin-top: 40px;
+        }
+
+        .bullying-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .bully-card {
+            padding: 25px;
+            border-left: 4px solid #4a90e2;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .bully-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+        }
+
+        .bully-card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        /* --- Адаптивность: на узких экранах блоки теперь точно будут друг под другом --- */
+        @media (max-width: 850px) {
+            .main-container {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 40px 5% 20px;
+            }
+            /* Прижимаем футер ближе к контенту на мобильных устройствах */
+            footer {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="site-title">Центр поддержки и информации</h1>
+    </header>
+
+    <!-- Блоки теперь всегда стоят в ряд -->
+    <div class="main-container">
+        <section class="card form-card">
+            <h2 style="margin-bottom: 20px;">Заполните анкету</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" placeholder="Иван Иванов" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" id="email" placeholder="example@mail.ru" required>
+                </div>
+                 <div class="form-group">
+                    <label for="topic">Тема обращения</label>
+                    <select id="topic">
+                        <option>Консультация</option>
+                        <option>Сообщить о проблеме</option>
+                        <option>Обратная связь</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Комментарий</label>
+                    <textarea id="message" rows="4" placeholder="Опишите вашу ситуацию..."></textarea>
+                </div>
+                <button type="submit">Отправить данные</button>
+            </form>
+        </section>
+
+        <section class="card text-block">
+            <h2 style="margin-bottom: 20px;">Что Вы получите</h2>
+            <p>Разберём можешь ли ты чувствовать физическую безопасность и что тебе нужно обеспечить для себя прямо сейчас с целью закрытия самых простых потребностей</p>
+            <p>Выясним предполагаемые источники угрозы<br>
+
+Определим шаги, которые с наибольшей вероятностью помогут:</p>
+            <p>· Если тебе нужна экстренная помощь специалистов, то определим какие это специалисты, ты получишь план действий с контактами. <br>
+
+· Если станет понятно, что тебе поможет именно юрист с небезразличным отношением к жертвам буллинга в России, тогда определим порядок дальнейших шагов, которые необходимо выполнить для защиты себя в физическом и цифровом пространстве. </p>
+            <p>Я не буду банальна, выдавая тебе рекомендации заученных ботов или государственных психотерапевтов, я поговорю с тобой для того, чтобы дать тебе немного спокойствия и точку опоры, если это возможно.</p>
+        </section>
+    </div>
+
+    <footer>
+        <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Виды буллинга</h2>
+        <div class="bullying-types">
+            <div class="bully-card">
+                <h3>Физический</h3>
+                <p>Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+            </div>
+            <div class="bully-card">
+                <h3>Вербальный</h3>
+                <p>Словесные нападки: оскорбления, присвоение кличек, угрозы, насмешки и публичное унижение.</p>
+            </div>
+            <div class="bully-card">
+                <h3>Социальный (реляционный)</h3>
+                <p>Игнорирование, распространение слухов, намеренное исключение из группы общения или общих дел.</p>
+            </div>
+            <div class="bully-card">
+                <h3>Кибербуллинг</h3>
+                <p>Травля через цифровые каналы: социальные сети, мессенджеры, игровые платформы и электронную почту.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
