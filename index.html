@@ -29,7 +29,7 @@
         }
         
         h1 {
-            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            font-size: 3.5rem;
             color: #2c3e50;
         }
 
@@ -161,7 +161,7 @@
 
     <header>
         <h1 id="site-title">Поддержка жертв травли и буллинга</h1>
-        <h2>30 минут разговора - 300 рублей</h2>
+        <h2 style="color: #2c3e50;">30 минут разговора - 300 рублей</h2>
     </header>
 
     <!-- Блоки теперь всегда стоят в ряд -->
@@ -169,10 +169,7 @@
         <section class="card form-card">
             <h2 style="margin-bottom: 20px;">ЗАЯВКА НА ЗВОНОК</h2>
             <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="email">Электронная почта</label>
-                    <input type="email" id="email" placeholder="example@mail.ru" required>
-                </div>
+
                 <div class="form-group">
                     <label for="topic"><strong>Пол</strong></label>
                     <div style="display: grid;gap: 8px;margin-bottom: 15px;grid-template-columns: repeat(2, 3fr);align-content: space-between;justify-content: space-around;align-items: baseline;justify-items: stretch;width: 700px;">
@@ -220,6 +217,10 @@
                         <label><input type="checkbox" name="topics" value=" Соседи"> Соседи</label>
                         <label><input type="checkbox" name="topics" value=" Незнакомые люди на улице"> Незнакомые люди на улице</label>
                         <label><input type="checkbox" name="topics" value=" Неизвестно что или кто в интернет пространстве, включая спам"> Неизвестно что или кто в интернет пространстве, включая спам</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Электронная почта</label>
+                        <input type="email" id="email" placeholder="example@mail.ru" required>
                     </div>
 
                 </div>
