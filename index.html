@@ -16,11 +16,9 @@
             background-color: #f4f4f8;
             color: #333;
             line-height: 1.6;
-            max-width: 1100px;
+            width: 1100px;
             box-sizing: border-box;
             margin: 0 auto;
-            width: 100%;
-            
             
         }
 
@@ -71,7 +69,7 @@
     padding: 35px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    max-width: 850px;
+    width: 850px;
     flex-grow: 1;
     justify-self: center;
     
@@ -83,7 +81,7 @@
     padding: 35px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    max-width: 850px;
+    width: 850px;
     flex-grow: 1;
     justify-self: center;
     flex-grow: 1; 
@@ -97,7 +95,7 @@
         top: 0;
         z-index: 100;
         justify-self:center;
-        max-width: 920px;
+        width: 920px;
         border-radius: 12px
         ;
         }
@@ -154,8 +152,8 @@
             font-size: 0.9rem;
             line-height: 1.1;
             max-width: 608px;
-            width: 60%;
-            margin-left: 20%;
+            width: 100%;
+            margin-left: 13%;
 }
         }
 
@@ -181,11 +179,11 @@
         /* Один аккордеон-блок */
         .bullying-types {
             flex: 1 1 calc(50% - 20px); /* Занимает половину строки (минус отступ) */
-            max-width: 500px; /* Чтобы на узких экранах не сжимался слишком сильно */
+            max-width: 608px; /* Чтобы на узких экранах не сжимался слишком сильно */
             background-color: #f9f9f9;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 10px 5px 5px 5px;
+            padding: 15px;
             justify-self: center;
             margin: auto;
         }
@@ -226,7 +224,7 @@
         }
 
         /* Адаптив: на мобильных одна колонка */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .simple-item {
                 flex-basis: 100%;
             }
@@ -288,36 +286,22 @@
 @media (max-width: 768px) {
 
     body{
-        max-width: 768px;
+        max-width: 100%;
     }
     .main-container {
-        max-width: 768px;
+        max-width: 90%;
         padding: 10px;
 
     }
-        .card2 {
+    .card2 {
         font-size: 0.7rem;
     }
-
-    .card {
-        max-width: 768px;
-        margin: auto;
-    }
-
-    .card1 {
-        max-width: 768px;
-        margin: auto;
-    }
-    
     h1{
         font-size: 1.5rem;
-        text-align: center;
     }
-
-    h2{
-        font-size: 1.5rem;
-        text-align: center;
+    
     }
+    
 
 
 
@@ -391,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <section class="card text-block">
             <h2 style="margin-bottom: 20px;">ДЛЯ ЧЕГО ЗВОНИТЬ</h2>
             <!-- Контейнер для вставки -->
-<div id="security-checklist-widget" style="font-family: Inter, sans-serif; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #fcfcfc; justify-self: center; max-width:510px; margin: auto;">
+<div id="security-checklist-widget" style="font-family: Inter, sans-serif; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #fcfcfc; justify-self: center; max-width:608px; margin: auto;">
 
     <h3 style="margin-top: 0;">Чек-лист "Безопасность в реальности"</h3>
     
@@ -429,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
  </ul>
 
     <!-- Кнопка отчета -->
-    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; margin: auto;">
+    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:608px; margin: auto;">
         Результаты 
     </button>
 
