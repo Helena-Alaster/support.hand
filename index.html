@@ -6,303 +6,187 @@
     <title>Поддержка жертв травли и буллинга</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-        
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Важно для расчета ширин */
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f4f4f8;
-            color: #333;
-            line-height: 1.6;
-            max-width: 1100px;
-            box-sizing: border-box;
-            margin: 0 auto;
-            width: 100%;
-            
-        }
-
-        header {
-        background-color: #ffffff;
-        padding:0 40px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        justify-self:center;
-        width: 850px;
-       
-        
-        }
-        
-        
-        h1 {
-            font-size:1.7rem;
-            color:#37373e;
-        }   
-
-        h2 {
-            font-size:1.07rem;
-            color:#37373e;
-            text-align: center;
-            justify-self: center;
-        } 
-
-        /* --- Ключевое изменение: фиксированное расположение в линию --- */
-        .main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            padding: 5% 0px 0px 10%;
-            max-width: 850px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            align-content: center;
-            flex-direction: column;
-
-        }
-
-        .card {
-                background-color: #ffffff;
-    padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    width: 850px;
-    flex-grow: 1;
-    justify-self: center;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f4f4f8;
+    color: #333;
+    line-height: 1.6;
     
-          
-        }
+    /* Убрали max-width: 1100px, чтобы фон тянулся на весь экран */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        .card1 {
-            background-color: #ffffff;
-    padding: 35px;
-    border-radius: 12px;
+/* --- ИСПРАВЛЕННЫЙ HEADER --- */
+header {
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 20px 15px; /* Заменили жесткие 40px на отступы внутри безопасной зоны */
+    width: 100%;
+}
+
+h1 {
+    font-size: clamp(1.4rem, 4vw, 1.7rem); /* Шрифт уменьшается на мелких экранах */
+    color: #37373e;
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(0.9rem, 3vw, 1.07rem);
+    color: #37373e;
+    text-align: center;
+}
+
+/* --- ОСНОВНОЙ КОНТЕЙНЕР --- */
+.main-container {
+    display: flex;
+    flex-direction: column; /* На мобильном — колонкой */
+    align-items: center;
+    gap: 30px;
+    padding: 20px 15px; /* Боковые отступы вместо процентов */
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* --- КАРТОЧКИ --- */
+.card {
+    background-color: #ffffff;
+    padding: 25px 20px; /* Чуть меньше внутренних полей на мобиле */
+    border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    width: 850px;
-    flex-grow: 1;
-    justify-self: center;
-    flex-grow: 1; 
+    width: 100%; /* Занимает всю ширину родителя */
+    max-width: 850px; /* Но не больше вашей текущей десктопной ширины */
+}
+
+.card1 {
+    background-color: #ffffff;
+    padding: 25px 20px; /* Чуть меньше внутренних полей на мобиле */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%; /* Занимает всю ширину родителя */
+    max-width: 850px; /* Но не больше вашей текущей десктопной ширины */
     order: 2;
-        }
-
-        .card2 {
-   background-color: #ffffff;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        top: 0;
-        z-index: 100;
-        justify-self:center;
-        width: 920px;
-        border-radius: 12px
-        ;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dcdfe3;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-        }
-        
-        input:focus, 
-        textarea:focus, 
-        select:focus {
-            outline: none;
-            border-color: #4a90e2;
-        }
-
-        button {
-            width: 850px;
-            padding: 14px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        button:hover {
-            background-color: #357abd;
-        }
-
-        .text-block p {
-            margin-bottom: 15px;
-            opacity: 0.9;
-            font-size: 0.9rem;
-            line-height: 1.1;
-            max-width: 608px;
-            width: 60%;
-            padding: 0% 0% 0% 20%;
-}
-        }
-
-
-
-        footer {
-            background-color: #ffffff;
-            padding: 40px 40px;
-            margin-top: 40px;
-            width: 40%;
-            justify-self: center;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-left: 27%;
-        }
-
-        .bullying-types {
-            display: flex;
-            flex-wrap: wrap; /* Перенос блоков на вторую строку */
-            gap: 20px; /* Расстояние между блоками */
-        }
-
-        /* Один аккордеон-блок */
-        .bullying-types {
-            flex: 1 1 calc(50% - 20px); /* Занимает половину строки (минус отступ) */
-            max-width: 608px; /* Чтобы на узких экранах не сжимался слишком сильно */
-            background-color: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 10px 5px 5px 5px;
-            justify-self: center;
-            margin: auto;
-            max-width: 500px;
-        }
-
-        /* Заголовок, по которому кликаем */
-        .bully-card summary {
-            cursor: pointer;
-            font-weight: 600;
-            color: #2C3E50;
-            outline: none; /* Убираем синюю рамку вокруг заголовка при фокусе */
-            list-style: none; /* Убираем стандартный маркер списка у summary */
-            padding: 10px;
-            font-size: 1rem;
-        }
-
-        /* Стрелочка справа (менять здесь ничего не нужно, но можно сменить цвет) */
-        .bully-card summary::-webkit-details-marker {
-            color: #666;
-        }
-        .bully-card summary::marker {
-            color: #666;
-        }
-
-        /* Плавный переход текста при открытии */
-        .bully-card p {
-            transition: opacity 0.2s ease;
-            opacity: 1;
-            padding: 10px;
-        }
-
-        /* Если хотите сделать фон чисто белым и добавить тень "карточки" */
-        .bully-card {
-            background-color: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            width: 780px;
-            border-left: 4px solid #144D90;
-            border-radius: 8px;
-        }
-
-        /* Адаптив: на мобильных одна колонка */
-        @media (max-width: 600px) {
-            .simple-item {
-                flex-basis: 100%;
-            }
 }
 
-        #security-checklist-container { 
-            border: 1px solid #e0e0e0; 
-            padding: 20px; 
-            border-radius: 8px; 
-            max-width: 780px; 
-            font-family: Arial, sans-serif; background-color: #f9f9f9; 
-        } 
+.card2 {
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 850px;
+    padding: 20px 15px;
+}
 
-        #security-checklist-container h3 { 
+.text-block p {
+    opacity: 0.9;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    text-align: justify;
+    max-width: 608px;
+    margin-left: 20%;
+    width: 60%;
+}
 
-            margin-top: 0; 
-            color: #333; 
-        } 
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            cursor: pointer; 
-            user-select: none; 
-        }
-        
-        button { 
-            margin-top: 15px; 
-            padding: 10px 15px; 
-            background-color: #007bff; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            } 
+footer {
+    background-color: #ffffff;
+    padding: 30px 20px;
+    margin-top: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        button:hover { 
-            background-color: #0056b3;
-        } 
+/* --- ЧЕК-ЛИСТ ВНУТРИ КАРТОЧКИ --- */
+#security-checklist-widget {
+    width: 100%;
+    max-width: 510px; /* Ограничиваем ширину виджета внутри карточки */
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        #report-output {
-            margin-top: 20px; 
-            padding: 15px; 
-            border-left: 4px solid #dc3545; 
-            background-color: #fff5f5; 
-            display: none; /* Скрыт до нажатия кнопки */ 
-        } 
+/* --- ВИДЖЕТ ПЛАНИРОВЩИКА (IFRAME) --- */
+.app-planerka-embed, #planerka-frame-xlwq36xev {
+    width: 100% !important;
+    max-width: 850px !important;
+    height: auto !important;
+    min-height: 600px !important; /* Динамическая высота лучше 1182px */
+    border-radius: 20px !important;
+}
 
-        #report-output ul { 
-            padding-left: 20px; 
-            margin: 10px 0 0 0; 
-        }
+/* --- БЛОКИ С ТИПАМИ БУЛЛИНГА --- */
+.bullying-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 608px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    width: 60%;
+    margin-left: 20%;
+}
 
-        .justified-text {
-            text-align: justify;
-        }
 
+.bully-card {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    flex: 1 1 calc(50% - 20px); /* Занимают по 2 штуки в ряд */
+    max-width: 500px;
+    border-radius: 8px;
+    border-left: 4px solid #144D90;
+    padding: 15px 5px;
+}
 
-
-@media (max-width: 768px) {
-
-    body{
-        max-width: 100%;
+/* Сворачиваем в одну колонку на очень узких экранах */
+@media (max-width: 500px) {
+    .bully-card {
+        flex-basis: 100%;
+        max-width: none;
     }
-    .main-container {
-        max-width: 90%;
-        padding: 10px;
+}
 
-    }
-    .card2 {
-        font-size: 0.7rem;
-    }
-    h1{
-        font-size: 1.5rem;
+
+/* === ГЛАВНЫЕ АДАПТИВНЫЕ ПРАВИЛА === */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0 10px; /* Страховка от прилипания самого body */
     }
     
+    h1 {
+        font-size: 1.4rem;
     }
+    
+    .main-container {
+        padding: 15px 10px;
+        gap: 20px;
+    }
+
+    .card, .card1 {
+        padding: 20px 15px;
+    }
+    
+    button {
+        width: 100% !important; /* Кнопка во всю ширину */
+        max-width: none !important;
+    }
+}
     
 
 
@@ -415,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
  </ul>
 
     <!-- Кнопка отчета -->
-    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; margin: auto;">
+    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; width: 100%; margin: auto;">
         Результаты 
     </button>
 
@@ -524,55 +408,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="bully-card">
                     <details>
                         <summary h3>Физический</summary h3>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; margin: initial; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
                 <div class="bully-card">
                     <details>
                         <summary>Физический</summary>
-                        <p style="margin-top: 10px; color: #444;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
+                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Прямое воздействие на человека: толчки, удары, порча личных вещей. Самый очевидный вид агрессии.</p>
                     </details>
                 </div>
         </section>
