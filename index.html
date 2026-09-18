@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
  </ul>
 
     <!-- Кнопка отчета -->
-    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: rgb(71 95 121); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; width: 100%; margin: auto;">
+    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #144D90; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; width: 100%; margin: auto;">
         Результаты 
     </button>
 
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const percent = Math.round((checkedCount / totalCount) * 100);
         
         progressBar.style.width = percent + '%';
-        progressBar.style.background = percent === 100 ? '#28a745' : '#007bff';
+        progressBar.style.background = percent === 100 ? '#28a745' : '#144D90';
         progressText.textContent = percent + '%';
     }
 
