@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </li>
         <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
             <input type="checkbox" class="check-item" id="item-updates" data-title="Тело необходимо исследовать регулярно, потому что любое не выявленное или запущенное недомогание негативно влияет на психику, лишая человека способности своевременно и адекватно реагировать на угрозы извне. В этом случае жертва становится менее способной для того, чтобы предпринимать объективные шаги к защите своих границ и своей безопасности. Пройдите все возможные медицинские обследования, которые не пройдены в рамках ОМС и возьмите под контроль все свои заболевания. ">
-            <label for="item-updates" class="custom-label">Мною пройдена ежегодная медицинская диспансеризация.</label>
+            <label for="item-updates" class="custom-label">Мною пройдена ежегодная медицинская диспансеризация</label>
         </li>
         <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
             <input type="checkbox" class="check-item" id="item-vpn" data-title="Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит. Начните хотя бы с этого приема. Если организму недостаточно микроэлементов, это негативно отражается на общем психологическом состоянии.">
@@ -458,11 +458,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date().toLocaleString('ru-RU');
         
         if (missedItems.length === 0) {
-            outputText = ` Отчет от ${now}\n\nВсе пункты чек-листа выполнены. Угрозы минимизированы.`;
+            outputText = `Отчет от ${now}\n\nВсе пункты чек-листа выполнены. Угрозы минимизированы.`;
             reportOutput.style.background = '#d4edda'; /* светло-зеленый */
             reportOutput.style.borderColor = '#c3e6cb';
         } else {
-            outputText = ` Отчет от ${now}\nТребуют внимания (${missedItems.length}):\n\n` + missedItems.join('\n');
+            outputText = `Отчет от ${now}\nТребуют внимания (${missedItems.length}):\n\n` + missedItems.join('\n');
             reportOutput.style.background = '#FDFAF1'; /* желто-песочный */
             reportOutput.style.borderColor = '#fff3cd';
         }
