@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!checkedIds.includes(item.id)) {
                 // Берем описание из атриribute data-title или из текста лейбла
                 const title = item.dataset.title || item.nextSibling.innerText;
-                missedItems.push(`[ ] ${title}`);
+                missedItems.push(` ${title}`);
             }
         });
 
@@ -460,13 +460,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date().toLocaleString('ru-RU');
         
         if (missedItems.length === 0) {
-            outputText = `🟢 Отчет от ${now}\n\nВсе пункты чек-листа выполнены. Угрозы минимизированы.`;
+            outputText = ` Отчет от ${now}\n\nВсе пункты чек-листа выполнены. Угрозы минимизированы.`;
             reportOutput.style.background = '#d4edda'; /* светло-зеленый */
             reportOutput.style.borderColor = '#c3e6cb';
         } else {
-            outputText = `🟡 Отчет от ${now}\nТребуют внимания (${missedItems.length}):\n\n` + missedItems.join('\n');
-            reportOutput.style.background = '#fff3cd'; /* желто-песочный */
-            reportOutput.style.borderColor = '#ffeaa7';
+            outputText = ` Отчет от ${now}\nТребуют внимания (${missedItems.length}):\n\n` + missedItems.join('\n');
+            reportOutput.style.background = '#fff8e0'; /* желто-песочный */
+            reportOutput.style.borderColor = '#fff3cd';
         }
 
         reportOutput.textContent = outputText;
