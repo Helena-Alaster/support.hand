@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!checkedIds.includes(item.id)) {
                 // Берем описание из атриribute data-title или из текста лейбла
                 const title = item.dataset.title || item.nextSibling.innerText;
-                missedItems.push(` ${title}`);
+                missedItems.push(`➭ ${title}`);
             }
         });
 
