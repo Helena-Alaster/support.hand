@@ -185,8 +185,8 @@ footer {
 .check-item:checked + .custom-label::after {
     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 20l-7-7 3-3 4 4L19 4l3 3z'/%3E%3C/svg%3E");
     position: absolute;
-    left: -5px;
-    top: 5px;
+    left: 2px;
+    top: 0.1em;
     width: 16px;
     height: 16px;
     display: flex;
@@ -195,7 +195,6 @@ footer {
     transition: all 0.2s ease;
     opacity: 1;
     transform: scale(1);
-}
 }
 
 /* Фокус для доступности (управление с клавиатуры) */
@@ -261,7 +260,9 @@ footer {
 
 /* === ГЛАВНЫЕ АДАПТИВНЫЕ ПРАВИЛА === */
 @media screen and (max-width: 768px) {
-    
+    body {
+        padding: 0 10px; /* Страховка от прилипания самого body */
+    }
     
     h1 {
         font-size: 1rem;
@@ -287,6 +288,56 @@ footer {
         margin: auto;
     }
 }
+
+:root {
+            --primary-color: #144D90;
+            --success-color: #28a745;
+            --warning-bg: #FFF3CD;
+            --warning-border: #FFC107;
+            --success-bg: #d4edda;
+            --text-dark: #2c3e50;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; padding: 30px; background: #f4f7fa; color: black; }
+        
+        .checklist-container {
+            border: 1px solid #dee2e6; padding: 25px; margin-bottom: 35px; border-radius: 14px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,.04);max-width: 510px;
+    margin-left: 20%;
+}
+        
+        
+        
+        /* --- СТИЛИЗАЦИЯ ЧЕКБОКСОВ ПОД ЦВЕТ #144D90 --- */
+        .check-item-custom-wrapper {
+            position: relative; display: block; cursor: pointer; user-select: none; margin-bottom: 16px; padding-left: 40px; min-height: 28px; font-size: 15px;
+        }
+        .check-item-custom {
+            position: absolute; opacity: 0; width: 0; height: 0;
+        }
+        .check-item-custom + label::before {
+            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: #333;
+            width: 22px; height: 22px; border: 2px solid var(--primary-color); border-radius: 6px; background-color: transparent; transition: all 0.2s ease; box-sizing: border-box; color: #888;
+        }
+        .check-item-custom:hover + label::before { background-color: rgba(20, 77, 144, 0.08); }
+        .check-item-custom:checked + label::before { background-color: var(--primary-color); border-color: var(--primary-color); }
+        .check-item-custom:checked + label::after {
+            content: '✓'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%) scale(0.85); color: white; font-weight: bold; font-size: 14px; line-height: 1; pointer-events: none;
+        }
+        .check-item-custom + label::after { transition: transform 0.2s ease; }
+        .check-item-custom:checked + label::after { transform: translateY(-50%) scale(1); }
+
+        .progress-group { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 15px; }
+        .progress-bar-bg { flex-grow: 1; height: 10px; background: #eee; border-radius: 5px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; transition: width 0.3s; }
+        
+        button { 
+            background: var(--primary-color); color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 15px; transition: .2s; border: 1px solid var(--primary-color);
+        }
+        button:hover { background: #0d2b5a; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(20, 77, 144, 0.2); }
+        
+        pre {
+            background: #fffbf0; border: 1px solid #ffeaa7; border-left-width: 6px; padding: 18px; white-space: pre-wrap; word-wrap: break-word; border-radius: 10px; display: none; font-size: 14.5px; line-height: 1.7; font-family: 'SF Mono', Monaco, Consolas, monospace;
+        }
     
 
 
@@ -297,46 +348,6 @@ footer {
     <!-- ...Весь ваш HTML-код из первого ответа остается прежним... -->
 <!-- Но тег <script> замените на этот: -->
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    window.generateReport = function() {
-        const checkboxes = document.querySelectorAll('input[name="item"]');
-        const checkedItems = Array.from(document.querySelectorAll('input[name="item"]:checked')).map(cb => cb.value);
-        const allItems = Array.from(checkboxes).map(cb => cb.value);
-        
-        const missedItems = allItems.filter(item => !checkedItems.includes(item));
-        
-        const outputDiv = document.getElementById('report-output');
-        
-        // НОВОЕ: Проверка, если не выбрано вообще ничего
-        if (checkboxes.length > 0 && checkedItems.length === 0) {
-            outputDiv.style.display = 'block';
-            outputDiv.style.borderLeftColor = "#ffeeba";
-            outputDiv.style.backgroundColor = "#fff3cd";
-            outputDiv.innerHTML = '<strong>Внимание:</strong> Пожалуйста, отметьте хотя бы один выполненный пункт.';
-            return;
-        }
-
-        if (missedItems.length === 0) {
-            outputDiv.style.display = 'block';
-            outputDiv.style.borderLeftColor = "green";
-            outputDiv.style.backgroundColor = "#d4edda";
-            outputDiv.innerHTML = '<strong style="color: green;">Отлично!</strong> Вы закрыли все базовые пункты цифровой безопасности.';
-        } else {
-            let listHtml = '<strong>Рекомендуется доделать:</strong><ul>';
-            missedItems.forEach(item => {
-                listHtml += `<li>${item}</li>`;
-            });
-            listHtml += '</ul>';
-            
-            outputDiv.style.display = 'block';
-            outputDiv.style.borderLeftColor = "#dc3545";
-            outputDiv.style.backgroundColor = "#f8d7da";
-            outputDiv.innerHTML = listHtml;
-        }
-    };
-});
-</script>
 </head>
 <body>
 
@@ -348,181 +359,137 @@ document.addEventListener('DOMContentLoaded', function() {
 
         </section>
         <section class="card text-block">
-        <h2 style="margin-bottom: 20px;">ДЛЯ ЧЕГО ЗВОНИТЬ</h2>
-        <p  class="justified-text">Разберём можете ли Вы чувствовать физическую безопасность и что нужно обеспечить для себя прямо сейчас с целью закрытия самых простых потребностей.</p>
-        <p  class="justified-text">Выясним предполагаемые источники угрозы и определим шаги, которые с наибольшей вероятностью помогут.</p>
-        <p  class="justified-text">Если Вам нужна экстренная помощь специалистов, то определим какие это специалисты, Вы получите план действий с контактами. </p>
-        <p  class="justified-text">Если станет понятно, что Вам поможет именно юрист с небезразличным отношением к жертвам буллинга в России, тогда определим порядок дальнейших шагов, которые необходимо выполнить для защиты себя в физическом и цифровом пространстве. </p>
-        <p  class="justified-text">Я не буду банальна, выдавая Вам рекомендации заученных ботов или государственных психотерапевтов, я поговорю с Вами для того, чтобы дать  немного спокойствия и точку опоры, если это возможно.</p>
+            <h2 style="margin-bottom: 20px;">ДЛЯ ЧЕГО ЗВОНИТЬ</h2>
+            <p  class="justified-text">Разберём можете ли Вы чувствовать физическую безопасность и что нужно обеспечить для себя прямо сейчас с целью закрытия самых простых потребностей.</p>
+            <p  class="justified-text">Выясним предполагаемые источники угрозы и определим шаги, которые с наибольшей вероятностью помогут.</p>
+            <p  class="justified-text">Если станет понятно, что Вам поможет именно юрист с небезразличным отношением к жертвам буллинга в России, тогда определим порядок дальнейших шагов, которые необходимо выполнить для защиты себя в физическом и цифровом пространстве.</p>
+            <p  class="justified-text">Если Вам нужна экстренная помощь специалистов, то определим какие это специалисты, Вы получите план действий с контактами.</p>
+            <p  class="justified-text">Я не буду банальна, выдавая Вам рекомендации заученных ботов или государственных психотерапевтов, я поговорю с Вами для того, чтобы дать  немного спокойствия и точку опоры, если это возможно.</p>
         </section>
-                <section class="card text-block">
+    <section class="card text-block">
             <h2 style="margin-bottom: 20px;">ПРЕЖДЕ ЧЕМ ЗВОНИТЬ</h2>
             <p>Проверьте себя! Выберите пункты с действиями, которые Вы уже ввели в свою повседневную жизнь.</p>
             <!-- Контейнер для вставки -->
-<div id="security-checklist-widget" style="font-family: Inter, sans-serif; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #fcfcfc; justify-self: center; max-width:510px; margin: auto; margin-top: 10px;">
-
-    <h3 style="margin-top: 0;">Чек-лист "Безопасность в реальности"</h3>
-
-    <!-- Список пунктов -->
-    <ul class="custom-checklist">
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #aaaaaa;">
-            <input type="checkbox" class="check-item" id="item-2fa" data-title="Достаточное количество чистой воды в организме крайне необходимо для нормального состояния нервной системы. При обезвоживании, человек становится более раздражителен, легче, подвержен стрессам, паникам и испугам. Пейте чистую воду из расчета 40 мл на 1 кг веса ежедневно в течение следующей недели, заметьте отличие.">
-            <label for="item-2fa" class="custom-label">Пью чистую воду из расчета 40 мл на 1 кг тела ежедневно</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-manager" data-title="Если организм получает недостаточное количество важных и питательных элементов, нервная система истощается. При этом если человек потребляет продукты, содержащие усилитель вкуса, его нервная система фактически сжигается, настроение и способы реагирования на окружающую действительность подобны тем, что есть у невротиков. Голодание или потребление вредной еды влекут бессонницу, усталость, нервное деградированные. Такие факторы являются косвенными помощниками для атакующих жертв травли и буллинга. Обратите внимание на то, что едите.">
-            <label for="item-manager" class="custom-label">Потребляю достаточное количество безвредной еды</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-updates" data-title="Тело необходимо исследовать регулярно, потому что любое не выявленное или запущенное недомогание негативно влияет на психику, лишая человека способности своевременно и адекватно реагировать на угрозы извне. В этом случае жертва становится менее способной для того, чтобы предпринимать объективные шаги к защите своих границ и своей безопасности. Пройдите все возможные медицинские обследования, которые не пройдены в рамках ОМС и возьмите под контроль все свои заболевания. ">
-            <label for="item-updates" class="custom-label">Мною пройдена ежегодная медицинская диспансеризация</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-vpn" data-title="Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит. Начните хотя бы с этого приема. Если организму недостаточно микроэлементов, это негативно отражается на общем психологическом состоянии.">
-            <label for="item-vpn" class="custom-label">Я пью витамины</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-phishing" data-title="Жертвы травли и буллинга находятся под прицелом бесчеловечных агрессоров и критиков. Любой фактор может являться причиной травли. Поэтому внимательно отнеситесь к своему внешнему виду, чтобы не давать лишний повод для агрессии в свою сторону в период острой фазы. Каждый день умывайтесь, чистите зубы, мойтесь с мылом или гелем для душа, проверяйте состояние ногтей, мойте голову, причесывайтесь, одевайте чистую, выглаженную одежду без пятен и дыр, подходящую по цвету и стилю обстановке и самой себе, используйте дезодорант. В период острой фазы агрессии не одевайтесь вульгарно, ярко, необычно, поскольку любое ваше отклонение от единообразия фактически алгоритмически будет использовано против Вас. Поэтому важно быть максимально не привлекающим к себе внимание, ничем не отличатся от общей массы.">
-            <label for="item-phishing" class="custom-label">Мой внешний опрятен и аккуратен</label>
-        </li>
- </ul>
-
-    <!-- Кнопка отчета -->
-    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #144D90; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; width: 100%; margin: auto;">
-        Результаты 
-    </button>
-
-    <!-- Область вывода отчета -->
-    <pre id="report-output" style="    background: rgb(255 243 205 / 75%);
-    border: 1px solid rgb(255 242 200); border-radius: 6px; padding: 12px; margin-top: 15px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word; min-height: 40px; display:none;"></pre>
-</div>
-<div id="security-checklist-widget" style="font-family: Inter, sans-serif; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #fcfcfc; justify-self: center; max-width:510px; margin: auto; margin-top: 10px;">
-
-    <h3 style="margin-top: 0;">Чек-лист "Безопасность в реальности"</h3>
-
-    <!-- Список пунктов -->
-    <ul class="custom-checklist">
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #aaaaaa;">
-            <input type="checkbox" class="check-item" id="item-2fa1" data-title="Достаточное количество чистой воды в организме крайне необходимо для нормального состояния нервной системы. При обезвоживании, человек становится более раздражителен, легче, подвержен стрессам, паникам и испугам. Пейте чистую воду из расчета 40 мл на 1 кг веса ежедневно в течение следующей недели, заметьте отличие.">
-            <label for="item-2fa1" class="custom-label">Пью чистую воду из расчета 40 мл на 1 кг тела ежедневно</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-manager1" data-title="Если организм получает недостаточное количество важных и питательных элементов, нервная система истощается. При этом если человек потребляет продукты, содержащие усилитель вкуса, его нервная система фактически сжигается, настроение и способы реагирования на окружающую действительность подобны тем, что есть у невротиков. Голодание или потребление вредной еды влекут бессонницу, усталость, нервное деградированные. Такие факторы являются косвенными помощниками для атакующих жертв травли и буллинга. Обратите внимание на то, что едите.">
-            <label for="item-manager1" class="custom-label">Потребляю достаточное количество безвредной еды</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-updates1" data-title="Тело необходимо исследовать регулярно, потому что любое не выявленное или запущенное недомогание негативно влияет на психику, лишая человека способности своевременно и адекватно реагировать на угрозы извне. В этом случае жертва становится менее способной для того, чтобы предпринимать объективные шаги к защите своих границ и своей безопасности. Пройдите все возможные медицинские обследования, которые не пройдены в рамках ОМС и возьмите под контроль все свои заболевания. ">
-            <label for="item-updates1" class="custom-label">Мною пройдена ежегодная медицинская диспансеризация</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-vpn1" data-title="Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит. Начните хотя бы с этого приема. Если организму недостаточно микроэлементов, это негативно отражается на общем психологическом состоянии.">
-            <label for="item-vpn1" class="custom-label">Я пью витамины</label>
-        </li>
-        <li style="padding: 8px 0; display: flex; align-items: start; gap: 10px; border-bottom: 1px dashed #eee;">
-            <input type="checkbox" class="check-item" id="item-phishing1" data-title="Жертвы травли и буллинга находятся под прицелом бесчеловечных агрессоров и критиков. Любой фактор может являться причиной травли. Поэтому внимательно отнеситесь к своему внешнему виду, чтобы не давать лишний повод для агрессии в свою сторону в период острой фазы. Каждый день умывайтесь, чистите зубы, мойтесь с мылом или гелем для душа, проверяйте состояние ногтей, мойте голову, причесывайтесь, одевайте чистую, выглаженную одежду без пятен и дыр, подходящую по цвету и стилю обстановке и самой себе, используйте дезодорант. В период острой фазы агрессии не одевайтесь вульгарно, ярко, необычно, поскольку любое ваше отклонение от единообразия фактически алгоритмически будет использовано против Вас. Поэтому важно быть максимально не привлекающим к себе внимание, ничем не отличатся от общей массы.">
-            <label for="item-phishing1" class="custom-label">Мой внешний опрятен и аккуратен</label>
-        </li>
- </ul>
-
-    <!-- Кнопка отчета -->
-    <button id="generate-report-btn" style="margin-top: 20px; padding: 10px 15px; background: #144D90; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; max-width:510px; width: 100%; margin: auto;">
-        Результаты 
-    </button>
-
-    <!-- Область вывода отчета -->
-    <pre id="report-output" style="    background: rgb(255 243 205 / 75%);
-    border: 1px solid rgb(255 242 200); border-radius: 6px; padding: 12px; margin-top: 15px; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word; min-height: 40px; display:none;"></pre>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const checklistKey = 'securityChecklist_progress';
-    const items = document.querySelectorAll('.check-item');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    const reportBtn = document.getElementById('generate-report-btn');
-    const reportOutput = document.getElementById('report-output');
-
-    // Функция сохранения состояния
-    function saveProgress() {
-        const checkedIds = [];
-        items.forEach(item => {
-            if (item.checked) {
-                checkedIds.push(item.id);
-            }
-        });
-        localStorage.setItem(checklistKey, JSON.stringify(checkedIds));
-        updateUI();
-    }
-
-    // Функция загрузки состояния
-    function loadProgress() {
-        const saved = JSON.parse(localStorage.getItem(checklistKey)) || [];
-        items.forEach(item => {
-            item.checked = saved.includes(item.id);
-        });
-        updateUI();
-    }
-
-    // Функция обновления интерфейса (прогресс + цвета)
-    function updateUI() {
-        const checkedCount = document.querySelectorAll('.check-item:checked').length;
-        const totalCount = items.length;
-        const percent = Math.round((checkedCount / totalCount) * 100);
-        
-        progressBar.style.width = percent + '%';
-        progressBar.style.background = percent === 100 ? '#28a745' : '#144D90';
-        progressText.textContent = percent + '%';
-    }
-
-    // Функция генерации отчета ТОЛЬКО по невыбранным пунктам
-    function generateReport() {
-        const checkedIds = Array.from(document.querySelectorAll('.check-item:checked')).map(el => el.id);
-        const missedItems = [];
-
-        items.forEach(item => {
-            if (!checkedIds.includes(item.id)) {
-                // Берем описание из атриribute data-title или из текста лейбла
-                const title = item.dataset.title || item.nextSibling.innerText;
-                missedItems.push(`▶ ${title}`);
-            }
-        });
-
-        let outputText = '';
-        const now = new Date().toLocaleString('ru-RU');
-        
-        if (missedItems.length === 0) {
-            outputText = `Отчет от ${now}\n\nВсе пункты чек-листа выполнены. Угрозы минимизированы.`;
-            reportOutput.style.background = '#d4edda'; /* светло-зеленый */
-            reportOutput.style.borderColor = '#c3e6cb';
-        } else {
-            outputText = `Отчет от ${now}\nТребуют внимания (${missedItems.length}):\n\n` + missedItems.join('\n');
-            reportOutput.style.background = '#FDFAF1'; /* желто-песочный */
-            reportOutput.style.borderColor = '#fff3cd';
-        }
-
-        reportOutput.textContent = outputText;
-        reportOutput.style.display = 'block';
-    }
-
-    // Копирование отчета в буфер обмена
-    reportOutput.addEventListener('click', function() {
-        navigator.clipboard.writeText(reportOutput.textContent).then(() => {
-            alert('Текст отчета скопирован в буфер обмена');
-        });
-    });
-
-    // Навешиваем обработчики
-    items.forEach(item => {
-        item.addEventListener('change', saveProgress);
-    });
+        <!-- ЧЕК-ЛИСТ №1: Реальность -->
+<div id="security-list" class="checklist-container">
+    <h2>Чек-лист "Безопасность в реальности"</h2>
     
-    reportBtn.addEventListener('click', generateReport);
+    <div class="progress-group">
+        <span>Прогресс:</span>
+        <div class="progress-bar-bg"><div id="security-progress-bar" class="progress-bar-fill"></div></div>
+        <span id="security-progress-text" class="progress-text">0%</span>
+    </div>
 
-    // Инициализация при загрузке
-    loadProgress();
-});
-</script>
+    <!-- СТРУКТУРА ИСПРАВЛЕНА: ТЕКСТ ВНУТРИ LABEL -->
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="sec-item-1">
+        <label for="sec-item-1" data-title="Пью чистую воду..." data-advice="▶ Достаточное количество чистой воды... Пейте чистую воду из расчета 40 мл на 1 кг веса ежедневно...">
+            Пью чистую воду из расчета 40 мл на 1 кг тела ежедневно
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="sec-item-2">
+        <label for="sec-item-2" data-title="Потребляю достаточное количество безвредной еды" data-advice="▶ Если организм получает недостаточное количество важных элементов, нервная система истощается... Обратите внимание на то, что едите.">
+            Потребляю достаточное количество безвредной еды
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="sec-item-3">
+        <label for="sec-item-3" data-title="Мной пройдена ежегодная медицинская диспансеризация" data-advice="▶ Тело необходимо исследовать регулярно... Пройдите все возможные медицинские обследования...">
+            Мной пройдена ежегодная медицинская диспансеризация
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="sec-item-4">
+        <label for="sec-item-4" data-title="Я пью витамины" data-advice="▶ Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит...">
+            Я пью витамины
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="sec-item-5">
+        <label for="sec-item-5" data-title="Мой внешний вид опрятен и аккуратен" data-advice="▶ Жертвы травли находятся под прицелом агрессоров... одевайте чистую, выглаженную одежду... используйте дезодорант.">
+            Мой внешний вид опрятен и аккуратен
+        </label>
+    </div>
+
+    <button id="generate-security-report-btn">Результат</button>
+    <pre id="security-report-output"></pre>
+</div>
+
+<!-- ЧЕК-ЛИСТ №2: Цифра (ID изменены на real-item-X) -->
+<div id="real-safety-list" class="checklist-container">
+    <h2>Чек-лист "Безопасность в цифровом пространстве"</h2>
+    
+    <div class="progress-group">
+        <span>Прогресс:</span>
+        <div class="progress-bar-bg"><div id="real-safety-progress-bar" class="progress-bar-fill"></div></div>
+        <span id="real-safety-progress-text" class="progress-text">0%</span>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-1">
+        <label for="real-item-1" data-title="Пью чистую воду..." data-advice="▶ Достаточное количество чистой воды...">
+            Пью чистую воду из расчета 40 мл на 1 кг тела ежедневно
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-2">
+        <label for="real-item-2" data-title="Потребляю достаточное количество безвредной еды" data-advice="▶ Если организм получает недостаточное количество важных элементов...">
+            Потребляю достаточное количество безвредной еды
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-3">
+        <label for="real-item-3" data-title="Мной пройдена ежегодная медицинская диспансеризация" data-advice="▶ Тело необходимо исследовать регулярно...">
+            Мной пройдена ежегодная медицинская диспансеризация
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-4">
+        <label for="real-item-4" data-title="Я пью витамины" data-advice="▶ Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит...">
+            Я пью витамины
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-5">
+        <label for="real-item-5" data-title="Мой внешний вид опрятен и аккуратен" data-advice="▶ Жертвы травли находятся под прицелом агрессоров...">
+            Мой внешний вид опрятен и аккуратен
+        </label>
+    </div>
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-3">
+        <label for="real-item-6" data-title="Мной пройдена ежегодная медицинская диспансеризация" data-advice="▶ Тело необходимо исследовать регулярно...">
+            Мной пройдена ежегодная медицинская диспансеризация
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-4">
+        <label for="real-item-7" data-title="Я пью витамины" data-advice="▶ Возьмите в аптеке самые простые и дешевые витамины: Омегу и Аевит...">
+            Я пью витамины
+        </label>
+    </div>
+
+    <div class="check-item-custom-wrapper">
+        <input type="checkbox" class="check-item-custom" id="real-item-5">
+        <label for="real-item-8" data-title="Мой внешний вид опрятен и аккуратен" data-advice="▶ Жертвы травли находятся под прицелом агрессоров...">
+            Мой внешний вид опрятен и аккуратен
+        </label>
+    </div>
+
+
+    <button id="generate-real-safety-report-btn">Результат</button>
+    <pre id="real-safety-report-output"></pre>
+</div>
+
         </section>
         
             
@@ -535,15 +502,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="bully-card">
                     <details>
                         <summary h3>Вуайеризм</summary h3>
-                        <p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Тайное наблюдение за людьми в интимных ситуациях без их согласия, что является
+                        <p style="margin-top: 10px; color: #444; margin: initial; width: 90%; margin-left: 15px;">Тайное наблюдение за людьми в интимных ситуациях без их согласия, что является
 грубым нарушением личных границ. В цифровой среде это явление
 трансформируется в форму кибербуллинга и психологического насилия, при
 котором агрессор получает удовлетворение от стресса, конфуза или унижения
 жертвы.</p>
-<p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Для достижения этого эффекта правонарушители могут идти на прямые
+<p style="margin-top: 10px; color: #444; margin: initial; width: 90%; margin-left: 15px;">Для достижения этого эффекта правонарушители могут идти на прямые
 преступления: подмешивать аллергены, отравляющие вещества, взламывать камеры
 гаджетов или заражать личные вещи.</p>
-<p style="margin-top: 10px; color: #444; width: 90%; margin-left: 15px;">Подобные действия также могут преследовать корыстные цели, позволяя
+<p style="margin-top: 10px; color: #444; margin: initial; width: 90%; margin-left: 15px;">Подобные действия также могут преследовать корыстные цели, позволяя
 злоумышленнику занять место дискредитированной жертвы самому или освободить
 место для «подруги». Этот вид правонарушений пока не имеет должного
 законодательного регулирования.</p>
@@ -653,6 +620,98 @@ data-planerka-color="#ff2e31">
 </div>
 
 <script src="https://planerka.app/assets/external/embed.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Функция инициализации одного конкретного листа
+    function initChecklist(containerId, reportBtnId, outputId) {
+        const container = document.getElementById(containerId);
+        if (!container) return; // Защита от ошибок при копировании шаблона
+
+        const items = container.querySelectorAll('.check-item-custom');
+        const progressBar = container.querySelector('.progress-bar-fill');
+        const progressText = container.querySelector('.progress-text');
+        const reportBtn = document.getElementById(reportBtnId);
+        const reportOutput = document.getElementById(outputId);
+
+        // Генерируем ключ localStorage динамически из ID контейнера
+        const storageKey = containerId + '_progress';
+
+        function saveProgress() {
+            const checkedIds = [];
+            items.forEach(item => { if (item.checked) checkedIds.push(item.id); });
+            localStorage.setItem(storageKey, JSON.stringify(checkedIds));
+            updateUI();
+        }
+
+        function loadProgress() {
+            const saved = JSON.parse(localStorage.getItem(storageKey)) || [];
+            items.forEach(item => { item.checked = saved.includes(item.id); });
+            updateUI();
+        }
+
+        function updateUI() {
+            const checkedCount = container.querySelectorAll('.check-item-custom:checked').length;
+            const totalCount = items.length;
+            const percent = Math.round((checkedCount / totalCount) * 100);
+            
+            progressBar.style.width = percent + '%';
+            progressBar.style.backgroundColor = percent === 100 ? '#28a745' : '#144D90';
+            progressText.textContent = percent + '%';
+        }
+
+        function generateReport() {
+            const now = new Date().toLocaleString('ru-RU');
+            let outputText = '';
+            let hasMissedItems = false;
+
+            const checkedIds = Array.from(container.querySelectorAll('.check-item-custom:checked')).map(el => el.id);
+
+            items.forEach(item => {
+                const parentWrapper = item.closest('.check-item-custom-wrapper');
+                const titleLabel = parentWrapper.querySelector('label');
+                const title = titleLabel.dataset.title;
+                
+                if (!checkedIds.includes(item.id)) {
+                    hasMissedItems = true;
+                    const advice = titleLabel.dataset.advice;
+                    outputText += ` ${title}\n`;
+                    outputText += `\n${advice}\n`;
+                    outputText += '---\n\n';
+                }
+            });
+
+            reportOutput.style.display = 'block';
+
+            if (!hasMissedItems) {
+                outputText = `Отчет от ${now}\n✅ Все пункты выполнены.`;
+                reportOutput.style.backgroundColor = '#d4edda';
+                reportOutput.style.borderLeftColor = '#28a745';
+            } else {
+                outputText = `Отчет от ${now}\nТребуют внимания (${items.length - checkedIds.length}):\n\n` + outputText;
+                reportOutput.style.backgroundColor = '#FFF3CD';
+                reportOutput.style.borderLeftColor = '#FFC107';
+            }
+
+            reportOutput.textContent = outputText;
+        }
+
+        // Навешиваем события только если элементы найдены
+        if (reportBtn) reportBtn.addEventListener('click', generateReport);
+        items.forEach(item => item.addEventListener('change', saveProgress));
+        loadProgress();
+    }
+
+    // СПИСОК ВСЕХ ЧЕК-ЛИСТОВ НА СТРАНИЦЕ
+    // Чтобы добавить 3-й лист, просто добавьте одну строку ниже:
+    // initChecklist('ИМЯ-ID-КОНТЕЙНЕРА', 'ID-КНОПКИ', 'ID-БЛОКА-ОТЧЕТА');
+
+    initChecklist('security-list', 'generate-security-report-btn', 'security-report-output');
+    initChecklist('real-safety-list', 'generate-real-safety-report-btn', 'real-safety-report-output');
+    // Пример для будущего третьего листа:
+    // initChecklist('travel-list', 'generate-travel-report-btn', 'travel-report-output');
+});
+</script>
 
 <!-- Planerka widget end -->
 <!-- Planerka widget end -->
