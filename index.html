@@ -122,7 +122,94 @@ footer {
     margin-right: auto;
 }
 
+/* Прячем оригинальный чекбокс визуально, но оставляем его в потоке документа */
+.check-item {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+}
 
+/* Контейнер label должен быть блочным относительно своего контента */
+.custom-label {
+    cursor: pointer;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    user-select: none;
+    /* Оставляем место под кастомный чекбокс слева */
+    padding-left: 28px;
+    position: relative;
+    display: block;
+}
+
+/* Рисуем сам бокс чекбокса через псевдоэлемент */
+.custom-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.1em; /* Сдвигаем чуть вниз для визуального выравнивания по первой строке текста */
+    width: 20px;
+    height: 20px;
+    background-color: #f7f7f7;
+    border: 1.5px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Эффект при наведении мыши на текст */
+.custom-label:hover::before {
+    border-color: #888;
+    background-color: #f0f0f0;
+}
+
+/* Состояние, когда чекбокс отмечен */
+.check-item:checked + .custom-label::before {
+    background-color: #142a66; /* Зеленый цвет фона */
+    border-color: #696969;
+}
+
+/* Анимация появления галочки */
+.check-item:not(:checked) + .custom-label::after {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Рисуем галочку внутри бокса */
+.check-item:checked + .custom-label::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 20l-7-7 3-3 4 4L19 4l3 3z'/%3E%3C/svg%3E");
+    position: absolute;
+    left: 2px;
+    top: 0.1em;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Фокус для доступности (управление с клавиатуры) */
+.check-item:focus-visible + .custom-label::before {
+    outline: 2px solid #14366b;
+    outline-offset: 2px;
+}
+
+/* --- ЧЕК-ЛИСТ ВНУТРИ КАРТОЧКИ --- */
+#security-checklist-widget {
+    width: 100%;
+    max-width: 510px; /* Ограничиваем ширину виджета внутри карточки */
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* --- ВИДЖЕТ ПЛАНИРОВЩИКА (IFRAME) --- */
 .app-planerka-embed, #planerka-frame-xlwq36xev {
@@ -214,18 +301,8 @@ footer {
         
         
         .checklist-container {
-               border: 1px solid #dee2e6;
-    padding: 25px;
-    margin-bottom: 35px;
-    border-radius: 14px;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,.04);
-    max-width: 510px;
-    margin-left: 20%;
-    line-height: 20px;
-    margin: auto;
-    margin-top: 10px;
-}
+            border: 1px solid #dee2e6; padding: 25px; margin-bottom: 35px; border-radius: 14px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,.04);max-width: 510px;
+    margin-left: 20%; margin: auto;
 }
         
         
