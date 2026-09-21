@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -46,7 +47,6 @@ h2 {
     font-size: clamp(0.9rem, 3vw, 1.07rem);
     color: #37373e;
     text-align: center;
-    margin-bottom: 15px;
 }
 
 h3 {
@@ -268,12 +268,12 @@ footer {
     }
     
     .main-container {
-        padding: 15px 0px;
+        padding: 15px 10px;
         gap: 20px;
     }
 
     .card, .card1 {
-        padding: 20px 0px;
+        padding: 20px 15px;
     }
     
     button {
@@ -335,7 +335,7 @@ footer {
         button:hover { background: #0d2b5a; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(20, 77, 144, 0.2); }
         
         pre {
-            background: #fffbf0; border: 1px solid #ffeaa7; border-left-width: 6px; padding: 18px; white-space: pre-wrap; word-wrap: break-word; border-radius: 10px; display: none; font-size: 14.5px; line-height: 1.4; font-family: 'Inter', sans-serif; margin-top: 10px; text-align: justify; max-width:510px; width:105%; margin: revert;
+            background: #fffbf0; border: 1px solid #ffeaa7; border-left-width: 6px; padding: 18px; white-space: pre-wrap; word-wrap: break-word; border-radius: 10px; display: none; font-size: 14.5px; line-height: 1.7; font-family: 'SF Mono', Monaco, Consolas, monospace;
         }
     
 
@@ -373,7 +373,11 @@ footer {
 <div id="security-list" class="checklist-container">
     <h2>Чек-лист "Безопасность в реальности"</h2>
     
-   
+    <div class="progress-group">
+        <span>Прогресс:</span>
+        <div class="progress-bar-bg"><div id="security-progress-bar" class="progress-bar-fill"></div></div>
+        <span id="security-progress-text" class="progress-text">0%</span>
+    </div>
 
     <!-- СТРУКТУРА ИСПРАВЛЕНА: ТЕКСТ ВНУТРИ LABEL -->
     <div class="check-item-custom-wrapper">
@@ -670,21 +674,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!checkedIds.includes(item.id)) {
                     hasMissedItems = true;
                     const advice = titleLabel.dataset.advice;
+                    outputText += ` ${title}\n`;
                     outputText += `\n${advice}\n`;
-                   
+                    outputText += '---\n\n';
                 }
             });
 
             reportOutput.style.display = 'block';
 
             if (!hasMissedItems) {
-                outputText = `Отчет от ${now}\n✅ Все пункты выполнены.`;
-                reportOutput.style.backgroundColor = '#d4edda';
-                reportOutput.style.borderLeftColor = '#28a745';
+                outputText = `Отчет от ${now}\n Все пункты выполнены.`;
+                reportOutput.style.backgroundColor = '#ebffef';
+                reportOutput.style.borderLeftColor = '#d4edda';
             } else {
                 outputText = `Отчет от ${now}\nТребуют внимания (${items.length - checkedIds.length}):\n\n` + outputText;
-                reportOutput.style.backgroundColor = '#FFF3CD';
-                reportOutput.style.borderLeftColor = '#FFC107';
+                reportOutput.style.backgroundColor = '##fff9e5';
+                reportOutput.style.borderLeftColor = '#FFF3CD';
             }
 
             reportOutput.textContent = outputText;
@@ -705,7 +710,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Пример для будущего третьего листа:
     // initChecklist('travel-list', 'generate-travel-report-btn', 'travel-report-output');
 });
-</script>
 </script>
 
 <!-- Planerka widget end -->
