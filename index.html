@@ -671,20 +671,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     hasMissedItems = true;
                     const advice = titleLabel.dataset.advice;
                     outputText += `\n${advice}\n`;
-                    ;
+                   
                 }
             });
 
             reportOutput.style.display = 'block';
 
             if (!hasMissedItems) {
-                outputText = `Отчет от ${now}\n Все пункты выполнены.`;
-                reportOutput.style.backgroundColor = '#ebffef';
-                reportOutput.style.borderLeftColor = '#d4edda';
+                outputText = `Отчет от ${now}\n✅ Все пункты выполнены.`;
+                reportOutput.style.backgroundColor = '#d4edda';
+                reportOutput.style.borderLeftColor = '#28a745';
             } else {
                 outputText = `Отчет от ${now}\nТребуют внимания (${items.length - checkedIds.length}):\n\n` + outputText;
-                reportOutput.style.backgroundColor = '##fff9e5';
-                reportOutput.style.borderLeftColor = '#FFF3CD';
+                reportOutput.style.backgroundColor = '#FFF3CD';
+                reportOutput.style.borderLeftColor = '#FFC107';
             }
 
             reportOutput.textContent = outputText;
@@ -705,6 +705,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Пример для будущего третьего листа:
     // initChecklist('travel-list', 'generate-travel-report-btn', 'travel-report-output');
 });
+</script>
 </script>
 
 <!-- Planerka widget end -->
